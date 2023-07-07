@@ -21,19 +21,11 @@ class CategoryController extends Controller
         // Validation
         $attr = $request->validate([
             'name'     => 'required|string|unique:categories,name',
-            'icon'     => 'image|mimes:jpg,jpeg,png,bmp,gif,svg,webp|max:1024',
         ]);
 
-        if ($request->file('icon' !== null)) {
-            $category = Category::create([
-                'name' => $attr['name'],
-                'icon' => $request->file('icon')->store('icon'),
-            ]);
-        } else {
-            $category = Category::create([
-                'name' => $attr['name'],
-            ]);
-        }
+        $category = Category::create([
+            'name' => $attr['name'],
+        ]);
 
         return response()->json([
             'category' => $category,
@@ -51,9 +43,7 @@ class CategoryController extends Controller
             ], 403);
         }
 
-        if (!empty($category->icon)) {
-            Storage::delete($category->icon);
-        }
+        Storage::delete($category->icon);
 
         $category->delete();
 

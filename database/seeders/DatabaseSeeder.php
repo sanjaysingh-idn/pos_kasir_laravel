@@ -37,25 +37,5 @@ class DatabaseSeeder extends Seeder
         Category::create([
             'name'      => 'Minyak Goreng'
         ]);
-
-        Product::create([
-            'name'          => 'Teh Botol Sosro',
-            'category'      => 1,
-            'desc'          => 'Minuman teh botol sosro',
-            'priceBuy'      => 4500,
-            'priceSell'     => 5500,
-            'stock'         => 24,
-            'barcode'       => '26264363636346',
-        ]);
-
-        Product::create([
-            'name'          => 'Minyak Goreng Filma 1 Liter',
-            'category'      => 2,
-            'desc'          => 'minyak goreng',
-            'priceBuy'      => 21000,
-            'priceSell'     => 24000,
-            'stock'         => 100,
-            'barcode'       => '26264363636332',
-        ]);
     }
 }

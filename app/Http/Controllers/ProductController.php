@@ -10,7 +10,7 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $products = Product::all();
+        $products = Product::with('category')->get();
         return response([
             'products' => $products
         ], 200);
@@ -56,20 +56,14 @@ class ProductController extends Controller
     {
         $product = Product::find($id);
 
-        if (!$product) {
-            return response([
-                'message' => 'Kategori tidak ditemukan.'
-            ], 403);
-        }
-
-        if (!empty($product->icon)) {
-            Storage::delete($product->icon);
+        if (!empty($product->image)) {
+            Storage::delete($product->image);
         }
 
         $product->delete();
 
         return response()->json([
-            'message' => 'Kategori berhasil dihapus.'
+            'message' => 'Product berhasil dihapus.'
         ]);
     }
 }
