@@ -52,6 +52,48 @@ class ProductController extends Controller
         ], 200);
     }
 
+    public function editproduct(Request $request, $id)
+    {
+        // Validation
+        $attr = $request->validate([
+            'name'          => 'required|string',
+            'category'      => 'required|numeric',
+            'desc'          => 'required|string',
+            'image'         => 'image|mimes:jpg,jpeg,png,bmp,gif,svg,webp|max:1024',
+            'priceBuy'      => 'required|numeric',
+            'priceSell'     => 'required|numeric',
+            'stock'         => 'required|numeric',
+            'barcode'       => 'required|string',
+        ]);
+
+        $product = Product::find($id);
+
+        if (!$product) {
+            return response()->json(['message' => 'Product not found'], 404);
+        }
+
+        // Update product data
+        $product->name = $attr['name'];
+        $product->category = $attr['category'];
+        $product->desc = $attr['desc'];
+        $product->priceBuy = $attr['priceBuy'];
+        $product->priceSell = $attr['priceSell'];
+        $product->stock = $attr['stock'];
+        $product->barcode = $attr['barcode'];
+
+        if ($request->hasFile('image')) {
+            // Delete the old image file (optional if you want to update the image)
+            Storage::delete($product->image);
+            $product->image = $request->file('image')->store('image');
+        }
+
+        $product->save();
+
+        return response()->json([
+            'message' => 'Produk berhasil diupdate',
+        ], 200);
+    }
+
     public function destroy($id)
     {
         $product = Product::find($id);

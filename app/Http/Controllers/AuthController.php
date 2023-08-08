@@ -72,4 +72,45 @@ class AuthController extends Controller
             'user' => auth()->user(),
         ], 200);
     }
+
+    public function destroy($id)
+    {
+        $user = User::findOrFail($id);
+        $user->delete();
+
+        return response()->json([
+            'message' => 'User berhasil dihapus.'
+        ]);
+    }
+
+    public function edituser(Request $request, $id)
+    {
+        // Validation
+        $attr = $request->validate([
+            'name' => 'required|string',
+            'email' => 'required|email|unique:users,email,' . $id,
+            'role' => 'required',
+            'password' => 'sometimes|min:8|confirmed',
+        ]);
+
+        $user = User::findOrFail($id);
+
+        // Update user data
+        $user->name = $attr['name'];
+        $user->email = $attr['email'];
+        $user->role = $attr['role'];
+
+        // Check if the password is provided and update it
+        if ($request->has('password')) {
+            $password = $request->input('password');
+            $user->password = bcrypt($password);
+        }
+
+        $user->save();
+
+        return response()->json([
+            'message' => 'User updated successfully',
+            'user' => $user
+        ], 200);
+    }
 }
