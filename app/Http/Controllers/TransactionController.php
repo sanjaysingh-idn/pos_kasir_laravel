@@ -12,6 +12,8 @@ class TransactionController extends Controller
 {
     public function index()
     {
+        // $getTransaction = Transaction::all();
+        // dd($getTransaction);
         $transaction = Transaction::with('transaction_details')->latest()->get();
         return response()->json([
             'transaction' => $transaction

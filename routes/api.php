@@ -3,8 +3,9 @@
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
-use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\ProductController;
+use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\TransactionController;
 
 /*
 |--------------------------------------------------------------------------
@@ -33,6 +34,7 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::post('/add_user', [AuthController::class, 'add_user']);
     Route::get('/user', [AuthController::class, 'user']);
     Route::put('/user/{id}', [AuthController::class, 'edit_user']);
+    Route::post('/edituser/{id}', [AuthController::class, 'edituser']);
     Route::delete('/user/{id}', [AuthController::class, 'destroy']);
 
     // Product
@@ -56,10 +58,11 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::get('/transaction-today', [TransactionController::class, 'today']);
     Route::get('/transaction-week', [TransactionController::class, 'week']);
     Route::get('/transaction-month', [TransactionController::class, 'month']);
-    Route::get('/transaction-year', [TransactionController::class, 'month']);
+    Route::get('/transaction-year', [TransactionController::class, 'year']);
     Route::post('/transaction', [TransactionController::class, 'store']);
     Route::get('/transaction/{id}', [TransactionController::class, 'show']);
     Route::put('/transaction/{id}', [TransactionController::class, 'update']);
     Route::delete('/transaction/{id}', [TransactionController::class, 'destroy']);
     Route::get('/total', [TransactionController::class, 'getTotal']);
+    Route::get('/get-latest-invoice-id', [TransactionController::class, 'getLatestInvoiceId']);
 });
