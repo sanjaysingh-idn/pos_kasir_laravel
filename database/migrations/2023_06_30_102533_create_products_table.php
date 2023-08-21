@@ -22,7 +22,7 @@ class CreateProductsTable extends Migration
             $table->integer('priceBuy');
             $table->integer('priceSell');
             $table->integer('discount')->nullable();
-            $table->integer('dicountPrice')->nullable();
+            $table->integer('discountPrice')->nullable();
             $table->integer('stock');
             $table->string('barcode')->nullable();
             $table->timestamps();

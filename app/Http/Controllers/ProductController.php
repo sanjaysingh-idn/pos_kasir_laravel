@@ -26,6 +26,8 @@ class ProductController extends Controller
             'image'         => 'image|mimes:jpg,jpeg,png,bmp,gif,svg,webp|max:1024',
             'priceBuy'      => 'required|numeric',
             'priceSell'     => 'required|numeric',
+            'discount'      => 'numeric',
+            'discountPrice' => 'numeric',
             'stock'         => 'required|numeric',
             'barcode'       => 'required|string',
         ]);
@@ -36,6 +38,8 @@ class ProductController extends Controller
             'desc'      => $attr['desc'],
             'priceBuy'  => $attr['priceBuy'],
             'priceSell' => $attr['priceSell'],
+            'discount'      => $attr['discount'],
+            'discountPrice' => $attr['discountPrice'],
             'stock'     => $attr['stock'],
             'barcode'   => $attr['barcode'],
         ];
@@ -62,6 +66,8 @@ class ProductController extends Controller
             'image'         => 'image|mimes:jpg,jpeg,png,bmp,gif,svg,webp|max:1024',
             'priceBuy'      => 'required|numeric',
             'priceSell'     => 'required|numeric',
+            'discount'      => 'numeric',
+            'discountPrice' => 'numeric',
             'stock'         => 'required|numeric',
             'barcode'       => 'required|string',
         ]);
@@ -73,13 +79,15 @@ class ProductController extends Controller
         }
 
         // Update product data
-        $product->name = $attr['name'];
-        $product->category = $attr['category'];
-        $product->desc = $attr['desc'];
-        $product->priceBuy = $attr['priceBuy'];
-        $product->priceSell = $attr['priceSell'];
-        $product->stock = $attr['stock'];
-        $product->barcode = $attr['barcode'];
+        $product->name          = $attr['name'];
+        $product->category      = $attr['category'];
+        $product->desc          = $attr['desc'];
+        $product->priceBuy      = $attr['priceBuy'];
+        $product->priceSell     = $attr['priceSell'];
+        $product->discount      = $attr['discount'];
+        $product->discountPrice = $attr['discountPrice'];
+        $product->stock         = $attr['stock'];
+        $product->barcode       = $attr['barcode'];
 
         if ($request->hasFile('image')) {
             // Delete the old image file (optional if you want to update the image)

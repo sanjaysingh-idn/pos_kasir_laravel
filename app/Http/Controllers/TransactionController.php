@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use Carbon\Carbon;
+use App\Models\Product;
 use App\Models\Transaction;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
@@ -111,13 +112,21 @@ class TransactionController extends Controller
         foreach ($transaction_details as $detail) {
             // Assuming $detail is an array with keys 'product_name', 'product_price', and 'qty'
             DB::table('transaction_details')->insert([
-                'transaction_id' => $transaction->id,
-                'product_name'   => $detail['product_name'],
-                'product_price'  => $detail['product_price'],
-                'qty'            => $detail['qty'],
-                'created_at'     => now(),
-                'updated_at'     => now(),
+                'transaction_id'    => $transaction->id,
+                'product_name'      => $detail['product_name'],
+                'product_price'     => $detail['product_price'],
+                'product_discount'  => $detail['product_discount'],
+                'product_discount_price'  => $detail['product_discount_price'],
+                'qty'               => $detail['qty'],
+                'created_at'        => now(),
+                'updated_at'        => now(),
             ]);
+
+            $product = Product::where('name', $detail['product_name'])->first();
+            if ($product) {
+                $product->stock -= $detail['qty'];
+                $product->save();
+            }
         }
 
         return response()->json([
