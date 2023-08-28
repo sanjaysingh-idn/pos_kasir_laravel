@@ -1,0 +1,4 @@
+1. Ganti menu utama logo+alamat SELESAI!!!
+2. Laporan Penjualan di export ke excel
+3. ID Customer otomatis penomoran 001,002, reset kalo ganti hari dan gak usah input nama SELESAI!!!
+4. Nota di beri logo + alamat SELESAI!!!

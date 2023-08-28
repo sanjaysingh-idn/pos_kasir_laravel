@@ -65,4 +65,5 @@ Route::group(['middleware' => ['auth:sanctum']], function () {
     Route::delete('/transaction/{id}', [TransactionController::class, 'destroy']);
     Route::get('/total', [TransactionController::class, 'getTotal']);
     Route::get('/get-latest-invoice-id', [TransactionController::class, 'getLatestInvoiceId']);
+    Route::get('/get-now-invoice-id', [TransactionController::class, 'getNowInvoiceId']);
 });

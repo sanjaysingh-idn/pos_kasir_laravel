@@ -157,4 +157,23 @@ class TransactionController extends Controller
 
         return $invoice_id;
     }
+
+    public function getLatestInvoiceId()
+    {
+        $latest_invoice = Transaction::latest('created_at')->first();
+        $getInvoiceId   = $latest_invoice->invoice_id;
+
+        return response()->json([
+            'invoice_id' => $getInvoiceId,
+        ], 200);
+    }
+    public function getNowInvoiceId()
+    {
+        $latest_invoice = Transaction::latest('created_at')->first();
+        $getInvoiceId   = $latest_invoice->invoice_id;
+        $incrementedInvoiceId = intval($getInvoiceId) + 1;
+        return response()->json([
+            'invoice_id' => $incrementedInvoiceId,
+        ], 200);
+    }
 }
